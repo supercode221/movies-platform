@@ -1,0 +1,39 @@
+<button (click)="addMovie()">Add a movie</button>
+
+@if (!movies) {
+<img
+  src="https://media2.giphy.com/media/emySgWo0iBKWqni1wR/200w.gif?cid=6c09b9521dc0aw8hbbla6s4vly2w24odz4few70enzyeo005&ep=v1_gifs_search&rid=200w.gif&ct=g"
+/>
+} @else if (movies.length === 0) {
+<div>
+  <p>There are no movies to display!</p>
+</div>
+} @else { @for (movie of movies; track $index) {
+<div class="movies-container">
+  <div>
+    @if (movie.poster){
+    <img [src]="movie.poster" width="169" height="250" />
+    } @else {
+    <img src="default.jpg" width="169" height="250" />
+    }
+  </div>
+
+  <div>
+    <div>
+      <b>{{ $index + 1 }}. {{ movie.title | uppercase }}</b>
+    </div>
+
+    <div>
+      {{ movie.releasedDate | date : "MMMM / dd / yyyy" | uppercase }}
+    </div>
+
+    <div>
+      {{ movie.price | currency : "VND" }}
+    </div>
+
+    <div>
+      <button (click)="deleteMovie(movie)">Remove</button>
+    </div>
+  </div>
+</div>
+} }
